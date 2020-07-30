@@ -1,0 +1,152 @@
+﻿<Page x:Class="AtomSkills.RolesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AtomSkills" xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1200"
+      Title="RolesPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Button Background="Transparent" BorderBrush="Transparent" Name="BtnFilter" Click="BtnFilter_Click">
+                <svgc:SvgViewbox Source="icon-svg/filter.svg"></svgc:SvgViewbox>
+            </Button>
+            <TextBox Style="{StaticResource placeHolder}" Tag="Системное имя" Name="TbLastNameSearch"></TextBox>
+            <TextBox Style="{StaticResource placeHolder}" Tag="Наименование" Name="TbNameSearch"></TextBox>
+            <Button Style="{StaticResource AddBlueButton}" Margin="100 0 0 0" Name="BtnAdd" Click="BtnAdd_Click">
+                <StackPanel Orientation="Horizontal">
+                    <svgc:SvgViewbox Height="30" Margin="0 0 0 0" Source="icon-svg/add-button.svg"></svgc:SvgViewbox>
+                    <TextBlock VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Добавить</TextBlock>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <DataGrid Background="#800080" Name="RolesDataGrid" AutoGenerateColumns="False" IsReadOnly="True" ColumnWidth="*" AlternatingRowBackground="#991199" RowBackground="#800080">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#800080"></Setter>
+                        <Setter Property="Foreground" Value="White"></Setter>
+                        <Setter Property="FontWeight" Value="Bold"></Setter>
+                        <Setter Property="FontSize" Value="14"></Setter>
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Системное имя" Foreground="White" Binding="{Binding SystemName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Наименование" Foreground="White"  Binding="{Binding Name}"></DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Дата">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Foreground="White">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0:dd/MM/yyyy}—{1:dd/MM/yyyy}">
+                                            <Binding Path="DateStart"></Binding>
+                                            <Binding Path="DateFinish"></Binding>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Height="50" Width="50" Name="BtnDelete" Click="BtnDelete_Click" Background="Transparent" BorderBrush="Transparent">
+                                    <svgc:SvgViewbox Source="icon-svg\delete.svg" ></svgc:SvgViewbox>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Background="Transparent" BorderBrush="Transparent" Height="50" Width="50" Name="BtnEdit" Click="BtnEdit_Click">
+                                    <svgc:SvgViewbox Source="icon-svg\edit.svg" ></svgc:SvgViewbox>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1" Name="grid1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" FontSize="14" Foreground="White">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}Роль: {0}">
+                        <Binding Path="Name"></Binding>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <StackPanel Grid.Row="1" Orientation="Vertical">
+                <TextBlock Margin="10" Foreground="White" FontWeight="Bold">Системное имя*</TextBlock>
+                <TextBox Name="TbSystemName" Text="{Binding SystemName}" BorderThickness="0 0 0 2" Width="350px" Height="40px" Margin="10" Tag="Введите фамилию"></TextBox>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                <TextBlock Margin="10" Foreground="White" FontWeight="Bold">Наименование*</TextBlock>
+                <TextBox Name="TbName" Text="{Binding Name}" BorderThickness="0 0 0 2" Width="350px" Height="40px" Margin="10" Tag="Введите фамилию"></TextBox>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Vertical">
+                <TextBlock Margin="10" Foreground="White" FontWeight="Bold">Дата старта*</TextBlock>
+                <DatePickerTextBox Name="TbStart" Text="{Binding DateStart,StringFormat=dd/MM/yyyy}" BorderThickness="0 0 0 2" Width="350px" Height="40px" Margin="10" Tag="Введите фамилию"></DatePickerTextBox>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Vertical">
+                <TextBlock Margin="10" Foreground="White" FontWeight="Bold">Дата окончания*</TextBlock>
+                <DatePickerTextBox Name="TbFinish" Text="{Binding DateFinish,StringFormat=dd/MM/yyyy}" BorderThickness="0 0 0 2" Width="350px" Height="40px" Margin="10" Tag="Введите фамилию"></DatePickerTextBox>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Row="4" Grid.ColumnSpan="2">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock HorizontalAlignment="Left" Foreground="White" FontSize="18" FontWeight="Bold">Доступные функции</TextBlock>
+                    <Button Style="{StaticResource AddBlueButton}" Name="BtnAddFunction" Click="BtnAddFunction_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <svgc:SvgViewbox Height="30" Margin="0 0 0 0" Source="icon-svg/add-button.svg"></svgc:SvgViewbox>
+                            <TextBlock VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Добавить</TextBlock>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                <ListBox Background="Purple" Name="FunctionListBox">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" Foreground="White" FontSize="14" FontWeight="Bold"></TextBlock>
+                                <Button Background="Transparent" BorderBrush="Transparent">
+                                    <svgc:SvgViewbox Source="icon-svg/delete.svg"></svgc:SvgViewbox>
+                                </Button>
+                                <CheckBox Click="CheckBox_Click"></CheckBox>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+            
+            <StackPanel Name="stack1" Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="2">
+                <Button Style="{StaticResource GreenButton}" Name="BtnSave" Click="BtnSave_Click">Сохранить</Button>
+                <Button Style="{StaticResource AddBlueButton}" Name="BtnCancel" Click="BtnCancel_Click">Отмена</Button>
+            </StackPanel>
+            <StackPanel Name="stack2" Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="2">
+                <Button Style="{StaticResource GreenButton}" Name="BtnSubmit" Click="BtnSubmit_Click">Применить</Button>
+                <Button Style="{StaticResource AddBlueButton}" Name="BtnCancelStack" Click="BtnCancelStack_Click">Отмена</Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

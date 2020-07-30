@@ -1,0 +1,245 @@
+﻿<Page x:Class="AtomSkills.ProfilePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AtomSkills" xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1200"
+      Title="ProfilePage">
+    <Grid Background="#800080">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <TabControl BorderBrush="Purple" Background="Purple" Grid.Row="1">
+            <TabControl.Resources>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="HeaderTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <Border x:Name="grid" Background="#991199">
+                                    <ContentPresenter>
+                                        <ContentPresenter.Content>
+                                            <TextBlock Margin="4" FontSize="15" Foreground="White" Text="{TemplateBinding Content}"/>
+                                        </ContentPresenter.Content>
+                                    </ContentPresenter>
+                                </Border>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type TabItem}},Path=IsSelected}" Value="True">
+                                        <Setter TargetName="grid" Property="Background" Value="#800080"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem Header="Личные данные">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.RowSpan="2" Grid.Row="1" x:Name="PathImage" Source="{Binding Image}" Width="100" Height="100">
+                        <Image.Clip>
+                            <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50"></EllipseGeometry>
+                        </Image.Clip>
+                    </Image>
+                    <Button Name="BtnUpdate" Click="BtnUpdate_Click" VerticalAlignment="Bottom" Grid.Row="3" Style="{StaticResource AddBlueButton}">Обновить</Button>
+                    <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+                        <TextBlock Margin="10" Foreground="White" FontWeight="Bold">Фамилия*</TextBlock>
+                        <TextBox Name="TbLastName" Text="{Binding LastName}" BorderThickness="0 0 0 2" Width="350px" Height="40px" Margin="10" Tag="Введите фамилию"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Vertical">
+                        <TextBlock Margin="10" Foreground="White" FontWeight="Bold">Имя*</TextBlock>
+                        <TextBox Name="TbFirstName" Text="{Binding FirstName}" Style="{StaticResource placeHolder}" Tag="Введите имя"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Vertical">
+                        <TextBlock Margin="10" Foreground="White" FontWeight="Bold">Отчество</TextBlock>
+                        <TextBox Name="TbMiddleName" Text="{Binding MiddleName}" Style="{StaticResource placeHolder}" Tag="Введите отчество"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal">
+                        <StackPanel Margin="10" Orientation="Vertical">
+                            <TextBlock Margin="10" Foreground="White" FontWeight="Bold">Дата рождения*</TextBlock>
+                            <DatePicker SelectedDate="{Binding BirthDate}" Name="TbBirthDate" Style="{StaticResource DatePicker}"></DatePicker>
+                        </StackPanel>
+                        <StackPanel Margin="10" Grid.Row="1" Orientation="Vertical">
+                            <TextBlock Margin="10" Foreground="White" FontWeight="Bold">Пол*</TextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox Name="ChM" Margin="0 10 20 0" Content="М" Click="ChM_Click" IsChecked="True"></CheckBox>
+                                <CheckBox Name="ChJ" Margin="0 10 0 0" Content="Ж" Click="ChJ_Click"></CheckBox>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Grid.Row="1"  Orientation="Vertical">
+                        <TextBlock Margin="10" Foreground="White" FontWeight="Bold">Email*</TextBlock>
+                        <TextBox HorizontalAlignment="Left" Name="TbEmail" Text="{Binding Email}" Style="{StaticResource placeHolder}" Tag="Введите адрес почты"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Vertical">
+                        <TextBlock Margin="10" Foreground="White" FontWeight="Bold">Телефон</TextBlock>
+                        <TextBox HorizontalAlignment="Left" Name="TbPhone" Text="{Binding PhoneNumber}" Style="{StaticResource placeHolder}" Tag="Введите номер (формат: 9 999-999-9999)"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Grid.Row="3" Orientation="Vertical">
+                        <TextBlock Margin="10" Foreground="White" FontWeight="Bold">Пароль</TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Style="{StaticResource placeHolder}" Text="{Binding Password}" Width="290px" Tag="Введите пароль" Name="TbPassword"></TextBox>
+                            <PasswordBox Style="{StaticResource Password}" Width="290px"  Name="TbPasswordSecond" Visibility="Collapsed"></PasswordBox>
+                            <Button Width="50px" Height="40px"  Name="BtnVisible" Click="BtnVisible_Click">
+                                <Path Data="M8.99957 3.06292C11.1329 3.06292 12.8597 4.66827 13.0186 6.70264L15.9689 8.9194C16.3568 8.44635 16.7137 7.94624 17.0017 7.39936C17.066 7.27563 17.0996 7.13893 17.0996 7.00028C17.0996 6.86163 17.066 6.72493 17.0017 6.6012C15.4765 3.70796 12.457 1.75042 8.99957 1.75042C8.24273 1.75042 7.5126 1.85979 6.80892 2.03643L8.26832 3.13428C8.50935 3.08902 8.7541 3.06513 8.99957 3.06292ZM0.173384 1.47424L3.2826 3.81049C2.33812 4.58435 1.56133 5.53307 0.997446 6.60147C0.933107 6.7252 0.899586 6.86191 0.899586 7.00055C0.899586 7.1392 0.933107 7.2759 0.997446 7.39964C2.52266 10.2929 5.54217 12.2504 8.99957 12.2504C10.4476 12.2487 11.8721 11.8943 13.1429 11.2196L16.721 13.9083C16.7677 13.9436 16.821 13.9696 16.878 13.9848C16.935 14.0001 16.9946 14.0042 17.0532 13.9971C17.1119 13.99 17.1685 13.9717 17.2199 13.9432C17.2713 13.9148 17.3164 13.8768 17.3527 13.8314L17.9048 13.1405C17.978 13.0489 18.0108 12.9327 17.996 12.8176C17.9812 12.7025 17.92 12.5978 17.8258 12.5266L1.27813 0.0925646C1.23148 0.0572662 1.17812 0.0312519 1.12111 0.0160093C1.06411 0.000766754 1.00458 -0.00340652 0.945915 0.00372887C0.887251 0.0108652 0.830608 0.0291691 0.779224 0.0575962C0.72784 0.0860224 0.682722 0.124014 0.646446 0.169401L0.0940704 0.860378C0.0208645 0.952009 -0.0119076 1.06816 0.00296593 1.18328C0.0178394 1.2984 0.0791416 1.40306 0.173384 1.47424ZM5.34051 5.35706L6.44582 6.18776C6.35274 6.44931 6.30336 6.72368 6.29957 7.00042C6.29408 7.40558 6.38641 7.80635 6.56913 8.17053C6.75185 8.53471 7.01988 8.85215 7.35168 9.09735C7.68349 9.34255 8.06981 9.50868 8.47963 9.58239C8.88945 9.65611 9.31134 9.63535 9.71142 9.52178C9.54182 9.29836 9.45008 9.0281 9.44957 8.75042C9.45377 8.65801 9.46829 8.56633 9.49288 8.47698L11.5632 10.0326C10.844 10.6168 9.93677 10.9372 8.99957 10.9379C8.46764 10.9382 7.94086 10.8366 7.44935 10.6388C6.95785 10.441 6.51127 10.151 6.13513 9.78529C5.75899 9.4196 5.46068 8.98542 5.25726 8.50757C5.05383 8.02972 4.94928 7.51758 4.94957 7.00042C4.94957 6.40897 5.09835 5.85772 5.34051 5.35678V5.35706Z" Fill="#747272"/>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Grid.Row="4" Orientation="Vertical">
+                        <TextBlock Margin="10" Foreground="White" FontWeight="Bold">Подтвердите пароль</TextBlock>
+                        <StackPanel Orientation="Horizontal" Grid.Row="5">
+                            <TextBox Style="{StaticResource placeHolder}" Width="290px" Tag="Повторите пароль" Name="TbPasswordSubmit"></TextBox>
+                            <PasswordBox Style="{StaticResource Password}" Width="290px"  Name="TbPasswordSecondSubmit" Visibility="Collapsed"></PasswordBox>
+                            <Button Width="50px" Height="40px"  Name="BtnVisibleSubmit" Click="BtnVisibleSubmit_Click">
+                                <Path Data="M8.99957 3.06292C11.1329 3.06292 12.8597 4.66827 13.0186 6.70264L15.9689 8.9194C16.3568 8.44635 16.7137 7.94624 17.0017 7.39936C17.066 7.27563 17.0996 7.13893 17.0996 7.00028C17.0996 6.86163 17.066 6.72493 17.0017 6.6012C15.4765 3.70796 12.457 1.75042 8.99957 1.75042C8.24273 1.75042 7.5126 1.85979 6.80892 2.03643L8.26832 3.13428C8.50935 3.08902 8.7541 3.06513 8.99957 3.06292ZM0.173384 1.47424L3.2826 3.81049C2.33812 4.58435 1.56133 5.53307 0.997446 6.60147C0.933107 6.7252 0.899586 6.86191 0.899586 7.00055C0.899586 7.1392 0.933107 7.2759 0.997446 7.39964C2.52266 10.2929 5.54217 12.2504 8.99957 12.2504C10.4476 12.2487 11.8721 11.8943 13.1429 11.2196L16.721 13.9083C16.7677 13.9436 16.821 13.9696 16.878 13.9848C16.935 14.0001 16.9946 14.0042 17.0532 13.9971C17.1119 13.99 17.1685 13.9717 17.2199 13.9432C17.2713 13.9148 17.3164 13.8768 17.3527 13.8314L17.9048 13.1405C17.978 13.0489 18.0108 12.9327 17.996 12.8176C17.9812 12.7025 17.92 12.5978 17.8258 12.5266L1.27813 0.0925646C1.23148 0.0572662 1.17812 0.0312519 1.12111 0.0160093C1.06411 0.000766754 1.00458 -0.00340652 0.945915 0.00372887C0.887251 0.0108652 0.830608 0.0291691 0.779224 0.0575962C0.72784 0.0860224 0.682722 0.124014 0.646446 0.169401L0.0940704 0.860378C0.0208645 0.952009 -0.0119076 1.06816 0.00296593 1.18328C0.0178394 1.2984 0.0791416 1.40306 0.173384 1.47424ZM5.34051 5.35706L6.44582 6.18776C6.35274 6.44931 6.30336 6.72368 6.29957 7.00042C6.29408 7.40558 6.38641 7.80635 6.56913 8.17053C6.75185 8.53471 7.01988 8.85215 7.35168 9.09735C7.68349 9.34255 8.06981 9.50868 8.47963 9.58239C8.88945 9.65611 9.31134 9.63535 9.71142 9.52178C9.54182 9.29836 9.45008 9.0281 9.44957 8.75042C9.45377 8.65801 9.46829 8.56633 9.49288 8.47698L11.5632 10.0326C10.844 10.6168 9.93677 10.9372 8.99957 10.9379C8.46764 10.9382 7.94086 10.8366 7.44935 10.6388C6.95785 10.441 6.51127 10.151 6.13513 9.78529C5.75899 9.4196 5.46068 8.98542 5.25726 8.50757C5.05383 8.02972 4.94928 7.51758 4.94957 7.00042C4.94957 6.40897 5.09835 5.85772 5.34051 5.35678V5.35706Z" Fill="#747272"/>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="6">
+                        <Button Name="BtnSave" Click="BtnSave_Click" Style="{StaticResource GreenButton}">Сохранить</Button>
+                        <Button Name="BtnCancel" Click="BtnCancel_Click" Style="{StaticResource AddBlueButton}">Отмена</Button>
+                    </StackPanel>
+                    <Button Grid.Column="2" Style="{StaticResource EditBlueButton}" Name="BtnEditProfile" Click="BtnEditProfile_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <svgc:SvgViewbox Height="30" Source="icon-svg/edit.svg"></svgc:SvgViewbox>
+                            <TextBlock VerticalAlignment="Center" FontWeight="Bold" FontSize="14">Редактировать</TextBlock>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Роли">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Name="UprStack" Visibility="Collapsed" Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center" Foreground="White" FontSize="14" FontWeight="Bold">Доступные роли</TextBlock>
+                            <ComboBox Margin="10" Height="30" Name="CmbRoles" SelectedIndex="0" DisplayMemberPath="Name" BorderBrush="#00BFFF" Width="150" BorderThickness="0 0 0 2"></ComboBox>
+                            <Button Style="{StaticResource AddBlueButton}" Name="BtnAdd" Click="BtnAdd_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <svgc:SvgViewbox Height="30" Source="icon-svg/add-button.svg"></svgc:SvgViewbox>
+                                    <TextBlock VerticalAlignment="Center">Добавить</TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                        <DataGrid Grid.Row="1" SelectionChanged="RolesDataGrid_SelectionChanged" Background="#800080" Name="RolesDataGrid" AutoGenerateColumns="False" IsReadOnly="True" ColumnWidth="*" AlternatingRowBackground="#991199" RowBackground="#800080">
+                            <DataGrid.Resources>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Background" Value="#800080"></Setter>
+                                    <Setter Property="Foreground" Value="White"></Setter>
+                                    <Setter Property="FontWeight" Value="Bold"></Setter>
+                                    <Setter Property="FontSize" Value="14"></Setter>
+                                </Style>
+                            </DataGrid.Resources>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Системное имя" Foreground="White" Binding="{Binding SystemName}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Наименование" Foreground="White"  Binding="{Binding Name}"></DataGridTextColumn>
+                                <DataGridTemplateColumn Header="Дата">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Foreground="White">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0:dd/MM/yyyy}—{1:dd/MM/yyyy}">
+                                                        <Binding Path="DateStart"></Binding>
+                                                        <Binding Path="DateFinish"></Binding>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn x:Name="BtnTemplate">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Height="50" Width="50" Name="BtnDelete" Click="BtnDelete_Click" Background="Transparent" BorderBrush="Transparent">
+                                                <svgc:SvgViewbox Source="icon-svg\delete.svg" ></svgc:SvgViewbox>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                    <Grid Grid.Column="1" Grid.Row="1" Name="grid1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" FontSize="14" Foreground="White">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Роль: {0}">
+                                    <Binding Path="Name"></Binding>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <StackPanel Grid.Row="1" Orientation="Vertical">
+                            <TextBlock Margin="10" Foreground="White" FontWeight="Bold">Системное имя*</TextBlock>
+                            <TextBox Name="TbSystemName" Text="{Binding SystemName}" BorderThickness="0 0 0 2" Width="350px" Height="40px" Margin="10" Tag="Введите фамилию"></TextBox>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                            <TextBlock Margin="10" Foreground="White" FontWeight="Bold">Наименование*</TextBlock>
+                            <TextBox Name="Name" Text="{Binding Name}" BorderThickness="0 0 0 2" Width="350px" Height="40px" Margin="10" Tag="Введите фамилию"></TextBox>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Orientation="Vertical">
+                            <TextBlock Margin="10" Foreground="White" FontWeight="Bold">Дата старта*</TextBlock>
+                            <DatePickerTextBox Name="TbStart" Text="{Binding DateStart,StringFormat=dd/MM/yyyy}" BorderThickness="0 0 0 2" Width="350px" Height="40px" Margin="10" Tag="Введите фамилию"></DatePickerTextBox>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Vertical">
+                            <TextBlock Margin="10" Foreground="White" FontWeight="Bold">Дата окончания*</TextBlock>
+                            <DatePickerTextBox Name="TbFinish" Text="{Binding DateFinish,StringFormat=dd/MM/yyyy}" BorderThickness="0 0 0 2" Width="350px" Height="40px" Margin="10" Tag="Введите фамилию"></DatePickerTextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Row="4" Grid.ColumnSpan="2">
+                            <TextBlock HorizontalAlignment="Left" Foreground="White" FontSize="18" FontWeight="Bold">Доступные функции</TextBlock>
+                            <ListBox  Background="Purple" Name="FunctionListBox">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}" Foreground="White" FontSize="14" FontWeight="Bold"></TextBlock>
+                                            <Button x:Name="BtnDeleteFunction" Click="BtnDeleteFunction_Click" Background="Transparent" BorderBrush="Transparent">
+                                                <svgc:SvgViewbox Source="icon-svg/delete.svg"></svgc:SvgViewbox>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

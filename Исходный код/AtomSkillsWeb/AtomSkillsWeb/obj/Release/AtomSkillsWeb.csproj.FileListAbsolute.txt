@@ -1,0 +1,15 @@
+C:\Users\gaste\source\repos\AtomSkillsWeb\AtomSkillsWeb\bin\AtomSkillsWeb.dll.config
+C:\Users\gaste\source\repos\AtomSkillsWeb\AtomSkillsWeb\bin\AtomSkillsWeb.dll
+C:\Users\gaste\source\repos\AtomSkillsWeb\AtomSkillsWeb\bin\AtomSkillsWeb.pdb
+C:\Users\gaste\source\repos\AtomSkillsWeb\AtomSkillsWeb\bin\EntityFramework.dll
+C:\Users\gaste\source\repos\AtomSkillsWeb\AtomSkillsWeb\bin\EntityFramework.SqlServer.dll
+C:\Users\gaste\source\repos\AtomSkillsWeb\AtomSkillsWeb\bin\EntityFramework.xml
+C:\Users\gaste\source\repos\AtomSkillsWeb\AtomSkillsWeb\bin\EntityFramework.SqlServer.xml
+C:\Users\gaste\source\repos\AtomSkillsWeb\AtomSkillsWeb\bin\ru\EntityFramework.resources.dll
+C:\Users\gaste\source\repos\AtomSkillsWeb\AtomSkillsWeb\obj\Release\AtomSkillsWeb.csprojAssemblyReference.cache
+C:\Users\gaste\source\repos\AtomSkillsWeb\AtomSkillsWeb\obj\Release\AtomSkillsWeb.Properties.Resources.resources
+C:\Users\gaste\source\repos\AtomSkillsWeb\AtomSkillsWeb\obj\Release\AtomSkillsWeb.csproj.GenerateResource.cache
+C:\Users\gaste\source\repos\AtomSkillsWeb\AtomSkillsWeb\obj\Release\AtomSkillsWeb.csproj.CoreCompileInputs.cache
+C:\Users\gaste\source\repos\AtomSkillsWeb\AtomSkillsWeb\obj\Release\AtomSkillsWeb.csproj.CopyComplete
+C:\Users\gaste\source\repos\AtomSkillsWeb\AtomSkillsWeb\obj\Release\AtomSkillsWeb.dll
+C:\Users\gaste\source\repos\AtomSkillsWeb\AtomSkillsWeb\obj\Release\AtomSkillsWeb.pdb

@@ -1,0 +1,115 @@
+﻿<Page x:Class="AtomSkills.OrdersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AtomSkills" xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="OrdersPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
+            <Button Background="Transparent" BorderBrush="Transparent" Name="Filter" Click="Filter_Click">
+                <svgc:SvgViewbox Source="icon-svg/filter.svg"></svgc:SvgViewbox>
+            </Button>
+            <ComboBox SelectedIndex="0" Width="200" Height="40" Name="CmbStatusF" DisplayMemberPath="Name"></ComboBox>
+            <DatePicker VerticalAlignment="Center" Margin="10" Width="150" Name="DpStart"></DatePicker>
+            <DatePicker VerticalAlignment="Center" Margin="10" Width="150"  Name="DpFinish"></DatePicker>
+        </StackPanel>
+        <DataGrid Grid.Row="1" Background="#800080" Name="OrdersDataGrid" AutoGenerateColumns="False" IsReadOnly="True" ColumnWidth="*" AlternatingRowBackground="#991199" RowBackground="#800080">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#800080"></Setter>
+                    <Setter Property="Foreground" Value="White"></Setter>
+                    <Setter Property="FontWeight" Value="Bold"></Setter>
+                    <Setter Property="FontSize" Value="14"></Setter>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Foreground="White" Header="Рег. Дата" Binding="{Binding Date,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                <DataGridTextColumn Foreground="White" Header="Заказчик" Binding="{Binding Supplier}"></DataGridTextColumn>
+                <DataGridTextColumn Foreground="White" Header="Отправление" Binding="{Binding AddressFrom}"></DataGridTextColumn>
+                <DataGridTextColumn Foreground="White" Header="Назначение" Binding="{Binding AddressTo}"></DataGridTextColumn>
+                <DataGridTextColumn Foreground="White" Header="Статус" Binding="{Binding Statuses.Name}"></DataGridTextColumn>
+                <DataGridTextColumn Foreground="White" Header="Оператор" Binding="{Binding Operator}"></DataGridTextColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Background="Transparent" BorderBrush="Transparent" Height="50" Width="50" Name="BtnEdit" Click="BtnEdit_Click">
+                                <svgc:SvgViewbox Source="icon-svg\edit.svg" ></svgc:SvgViewbox>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="1" Grid.Column="1" Name="grid1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Foreground="White" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0">Дата: </TextBlock>
+            <TextBlock Foreground="White" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0" Grid.Row="1">Заказчик: </TextBlock>
+            <TextBlock Foreground="White" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0" Grid.Row="2">Пункт отправления: </TextBlock>
+            <TextBlock Foreground="White" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0" Grid.Row="3">Пункт назначения: </TextBlock>
+            <TextBlock Foreground="White" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0" Grid.Row="4">Транспорт: </TextBlock>
+            <TextBlock Foreground="White" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0" Grid.Row="5">Оператор: </TextBlock>
+            <TextBlock Foreground="White" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0" Grid.Row="6">Статус: </TextBlock>
+            <DatePicker Grid.Column="1" Style="{StaticResource normalDatePicker}" VerticalAlignment="Center" SelectedDate="{Binding Date}" Name="TbDate"></DatePicker>
+            <ComboBox SelectedIndex="0" Name="CmbSuppliers" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1} {2}">
+                                    <Binding Path="LastName"></Binding>
+                                    <Binding Path="FirstName"></Binding>
+                                    <Binding Path="MiddleName"></Binding>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource normalPlaceHolder}" Name="TbFrom" Width="180" Text="{Binding AddressFrom}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="3" Style="{StaticResource normalPlaceHolder}" Name="TbTo" Width="180" Text="{Binding AddressTo}"></TextBox>
+            <ComboBox Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" SelectedIndex="0" Name="CmbTransports" DisplayMemberPath="Number"></ComboBox>
+            <ComboBox Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" Name="CmbStatus" SelectedIndex="0" DisplayMemberPath="Name"></ComboBox>
+            <ComboBox SelectedIndex="0" Name="CmbOperators" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1} {2}">
+                                    <Binding Path="LastName"></Binding>
+                                    <Binding Path="FirstName"></Binding>
+                                    <Binding Path="MiddleName"></Binding>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Grid.Row="7" Grid.Column="1" Name="BtnSave" Click="BtnSave_Click" Style="{StaticResource GreenButton}" Width="180">Сохранить</Button>
+        </Grid>
+    </Grid>
+</Page>
